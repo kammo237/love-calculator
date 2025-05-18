@@ -4,74 +4,141 @@
   <title>Love Calculator</title>
   <style>
     body {
-      font-family: Arial, sans-serif;
-      background: #ffe4e1;
+      font-family: 'Comic Sans MS', cursive, sans-serif;
+      background: linear-gradient(to right, #ffe4e1, #fff0f5);
       text-align: center;
       padding-top: 100px;
+      overflow: hidden;
     }
+
     input {
       padding: 10px;
       margin: 10px;
-      border-radius: 5px;
+      border-radius: 10px;
       border: 1px solid #ccc;
-      width: 200px;
+      width: 220px;
+      font-size: 16px;
     }
+
     button {
-      padding: 10px 20px;
+      padding: 10px 25px;
       border: none;
-      border-radius: 5px;
+      border-radius: 10px;
       background-color: #ff4d6d;
       color: white;
       cursor: pointer;
       font-weight: bold;
+      font-size: 16px;
+      transition: 0.3s;
     }
+
+    button:hover {
+      background-color: #ff1a40;
+    }
+
     #result {
-      margin-top: 20px;
-      font-size: 20px;
+      margin-top: 30px;
+      font-size: 22px;
       font-weight: bold;
-      color: #333;
+      color: #d63384;
+    }
+
+    .heart {
+      position: fixed;
+      width: 20px;
+      height: 20px;
+      background-color: red;
+      transform: rotate(45deg);
+      animation: float 4s linear infinite;
+      opacity: 0.7;
+    }
+
+    .heart::before,
+    .heart::after {
+      content: '';
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      background-color: red;
+      border-radius: 50%;
+    }
+
+    .heart::before {
+      top: -10px;
+      left: 0;
+    }
+
+    .heart::after {
+      top: 0;
+      left: -10px;
+    }
+
+    @keyframes float {
+      0% {
+        transform: translateY(0) rotate(45deg);
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(-100vh) rotate(45deg);
+        opacity: 0;
+      }
     }
   </style>
 </head>
 <body>
 
   <h1>💘 Love Calculator 💘</h1>
-  
+
   <input type="text" id="myName" placeholder="Your Name">
   <br>
   <input type="text" id="yourName" placeholder="Crush's Name">
   <br>
-  <button onclick="calculateLove()">Calculate Love</button>
+  <button onclick="calculateLove()">💌 Calculate Love</button>
 
   <div id="result"></div>
 
   <script>
+    function createHeart() {
+      const heart = document.createElement("div");
+      heart.className = "heart";
+      heart.style.left = Math.random() * 100 + "vw";
+      heart.style.animationDuration = (2 + Math.random() * 3) + "s";
+      document.body.appendChild(heart);
+
+      setTimeout(() => heart.remove(), 4000);
+    }
+
     function calculateLove() {
-      var myname = document.getElementById("myName").value.trim();
-      var yourname = document.getElementById("yourName").value.trim();
+      let myname = document.getElementById("myName").value.trim();
+      let yourname = document.getElementById("yourName").value.trim();
 
       if (myname === "" || yourname === "") {
-        alert("Please fill in both names.");
+        alert("Please fill in both names 😅");
         return;
       }
 
-      var loveValue = Math.floor(Math.random() * 100) + 1;
-      var message = "Your love percentage is: " + loveValue + "% ❤️<br>";
-
-      if (loveValue < 20) {
-        message += myname + " is akhand chutiya in pyar 😭";
-      } 
-      else if (loveValue >= 20 && loveValue < 50) {
-        message += myname + " is in one-sided love 💔";
-      } 
-      else if (loveValue >= 50 && loveValue < 80) {
-        message += "Maybe " + myname + " and " + yourname + " will end up together 💞";
-      } 
-      else if (loveValue >= 80) {
-        message += "Congrats! " + myname + " and " + yourname + " are a perfect match 💖";
+      // Floating hearts
+      for (let i = 0; i < 20; i++) {
+        setTimeout(createHeart, i * 200);
       }
 
-      document.getElementById("result").innerHTML = message;
+      // Delay for suspense
+      setTimeout(() => {
+        let loveValue = Math.floor(Math.random() * 100) + 1;
+        let message = `<p>❤️ Your love percentage is: <strong>${loveValue}%</strong></p>`;
+
+        if (loveValue < 20) {
+          message += `<p>💔 ${myname} is akhand chutiya in pyar 😭</p>`;
+        } else if (loveValue < 50) {
+          message += `<p>💢 One-sided love alert: ${myname} likes ${yourname} way too much 😂</p>`;
+        } else if (loveValue < 80) {
+          message += `<p>💘 Maybe ${myname} and ${yourname} will end up together 😉</p>`;
+        } else {
+          message += `<p>💖 Match made in heaven! ${myname} ❤️ ${yourname} forever!</p>`;
+        }
+
+        document.getElementById("result").innerHTML = message;
+      }, 1500);
     }
   </script>
 
