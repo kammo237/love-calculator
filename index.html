@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Love Calculator</title>
+</head>
+<body>
+  <script>
+    alert("Welcome to Love Calculator ❤️");
+
+    var myname = prompt("Your Name: ");
+    var yourname = prompt("Name of your crush: ");
+
+    var loveValue = Math.floor(Math.random() * 100) + 1;
+
+    alert("Your love percentage is: " + loveValue + "% ❤️");
+
+    if (loveValue < 20) {
+      alert(myname + " is akhand chutiya in pyar 😭");
+    } 
+
+    if (loveValue > 20 && loveValue < 50) {
+      alert(myname + " is in one-sided love 💔");
+    }
+
+    if (loveValue > 50 && loveValue < 80) {
+      alert("Maybe " + myname + " and " + yourname + " will end up together 💞");
+    }
+
+    if (loveValue > 90) {
+      alert("Congrats! " + myname + " and " + yourname + " are a perfect match 💖");
+    }
+  </script>
+</body>
+</html>
