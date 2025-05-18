@@ -1,7 +1,8 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>Love Calculator</title>
+  <meta charset="UTF-8">
+  <title>💘 Ultimate Love Calculator 💘</title>
   <style>
     body {
       font-family: 'Comic Sans MS', cursive, sans-serif;
@@ -29,6 +30,7 @@
       cursor: pointer;
       font-weight: bold;
       font-size: 16px;
+      margin: 5px;
       transition: 0.3s;
     }
 
@@ -87,15 +89,20 @@
 </head>
 <body>
 
-  <h1>💘 Love Calculator 💘</h1>
+  <h1>💘 Ultimate Love Calculator 💘</h1>
 
   <input type="text" id="myName" placeholder="Your Name">
   <br>
   <input type="text" id="yourName" placeholder="Crush's Name">
   <br>
   <button onclick="calculateLove()">💌 Calculate Love</button>
+  <button onclick="resetForm()">🔄 Reset</button>
 
   <div id="result"></div>
+
+  <audio id="bgMusic" loop autoplay>
+    <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
+  </audio>
 
   <script>
     function createHeart() {
@@ -104,8 +111,20 @@
       heart.style.left = Math.random() * 100 + "vw";
       heart.style.animationDuration = (2 + Math.random() * 3) + "s";
       document.body.appendChild(heart);
-
       setTimeout(() => heart.remove(), 4000);
+    }
+
+    function consistentLoveValue(name1, name2) {
+      let str = name1.toLowerCase() + name2.toLowerCase();
+      let hash = 0;
+      for (let i = 0; i < str.length; i++) {
+        hash += str.charCodeAt(i);
+      }
+      return (hash % 100) + 1;  // Always between 1–100
+    }
+
+    function isNameValid(name) {
+      return /^[a-zA-Z\s]+$/.test(name);
     }
 
     function calculateLove() {
@@ -117,14 +136,17 @@
         return;
       }
 
-      // Floating hearts
+      if (!isNameValid(myname) || !isNameValid(yourname)) {
+        document.getElementById("result").innerHTML = "😈 Use real names goddamn loner 😤";
+        return;
+      }
+
       for (let i = 0; i < 20; i++) {
         setTimeout(createHeart, i * 200);
       }
 
-      // Delay for suspense
       setTimeout(() => {
-        let loveValue = Math.floor(Math.random() * 100) + 1;
+        let loveValue = consistentLoveValue(myname, yourname);
         let message = `<p>❤️ Your love percentage is: <strong>${loveValue}%</strong></p>`;
 
         if (loveValue < 20) {
@@ -139,6 +161,12 @@
 
         document.getElementById("result").innerHTML = message;
       }, 1500);
+    }
+
+    function resetForm() {
+      document.getElementById("myName").value = "";
+      document.getElementById("yourName").value = "";
+      document.getElementById("result").innerHTML = "";
     }
   </script>
 
