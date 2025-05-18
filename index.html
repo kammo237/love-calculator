@@ -2,33 +2,78 @@
 <html>
 <head>
   <title>Love Calculator</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #ffe4e1;
+      text-align: center;
+      padding-top: 100px;
+    }
+    input {
+      padding: 10px;
+      margin: 10px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+      width: 200px;
+    }
+    button {
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
+      background-color: #ff4d6d;
+      color: white;
+      cursor: pointer;
+      font-weight: bold;
+    }
+    #result {
+      margin-top: 20px;
+      font-size: 20px;
+      font-weight: bold;
+      color: #333;
+    }
+  </style>
 </head>
 <body>
+
+  <h1>💘 Love Calculator 💘</h1>
+  
+  <input type="text" id="myName" placeholder="Your Name">
+  <br>
+  <input type="text" id="yourName" placeholder="Crush's Name">
+  <br>
+  <button onclick="calculateLove()">Calculate Love</button>
+
+  <div id="result"></div>
+
   <script>
-    alert("Welcome to Love Calculator ❤️");
+    function calculateLove() {
+      var myname = document.getElementById("myName").value.trim();
+      var yourname = document.getElementById("yourName").value.trim();
 
-    var myname = prompt("Your Name: ");
-    var yourname = prompt("Name of your crush: ");
+      if (myname === "" || yourname === "") {
+        alert("Please fill in both names.");
+        return;
+      }
 
-    var loveValue = Math.floor(Math.random() * 100) + 1;
+      var loveValue = Math.floor(Math.random() * 100) + 1;
+      var message = "Your love percentage is: " + loveValue + "% ❤️<br>";
 
-    alert("Your love percentage is: " + loveValue + "% ❤️");
+      if (loveValue < 20) {
+        message += myname + " is akhand chutiya in pyar 😭";
+      } 
+      else if (loveValue >= 20 && loveValue < 50) {
+        message += myname + " is in one-sided love 💔";
+      } 
+      else if (loveValue >= 50 && loveValue < 80) {
+        message += "Maybe " + myname + " and " + yourname + " will end up together 💞";
+      } 
+      else if (loveValue >= 80) {
+        message += "Congrats! " + myname + " and " + yourname + " are a perfect match 💖";
+      }
 
-    if (loveValue < 20) {
-      alert(myname + " is akhand chutiya in pyar 😭");
-    } 
-
-    if (loveValue > 20 && loveValue < 50) {
-      alert(myname + " is in one-sided love 💔");
-    }
-
-    if (loveValue > 50 && loveValue < 80) {
-      alert("Maybe " + myname + " and " + yourname + " will end up together 💞");
-    }
-
-    if (loveValue > 90) {
-      alert("Congrats! " + myname + " and " + yourname + " are a perfect match 💖");
+      document.getElementById("result").innerHTML = message;
     }
   </script>
+
 </body>
 </html>
